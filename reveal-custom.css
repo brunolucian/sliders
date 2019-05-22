@@ -1,0 +1,136 @@
+.reveal h1.title {
+  font-size: 3em;
+  text-transform: none;
+}
+
+.reveal h1.subtitle {
+  font-size: 1.5em;
+  text-transform: none;
+  margin-top: -20px;
+}
+
+.reveal .author {
+  font-size: 1.5em;
+  margin-top: 40px;
+  text-transform: none;
+  background-color: transparent;
+}
+
+.reveal .location {
+  font-size: 0.625em;
+  color: #222222;
+  margin-top: 40px;
+  margin-bottom: 0;
+  text-transform: none;
+}
+.reveal .date {
+  font-size: 0.625em;
+  color: #222222;
+  text-transform: none;
+}
+
+.reveal .social {
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+.reveal .social span {
+  margin: 0 15px 0 15px;
+}
+
+.reveal .logo {
+  /* margin-top: -10px; */
+}
+.reveal .logo img {
+  margin: 0 15px 0 15px;
+  height: 60px;
+}
+
+img {
+  border: 0 !important;
+  box-shadow: none !important;
+  background: none !important;
+}
+
+.reveal .caption {
+  text-align: left;
+  margin-top: -10px;
+  font-size: 50% !important;
+}
+
+pre {
+  /* box-shadow: none !important; */
+  background-color: #EEEEEE;
+}
+
+/*
+  Aligning text on slides:
+  
+  - left by default but
+  - centered using "align-center" class.
+*/
+.reveal p {
+  text-align: left;
+}
+.reveal ul {
+  display: block;
+}
+.reveal ol {
+  display: block;
+}
+
+.align-center > p {
+  text-align: center;
+}
+
+body > div.reveal.default.center > div.slides > section.stack.present > section.slide.level2.present > p > span.fragment.strike.visible.current-fragment {
+  text-decoration-color: red;
+}
+
+.reveal .emphasis {
+  color: #e67e22;
+  font-size: 96px;
+  line-height: 72px;
+}
+
+/* TWITTER ----------------------------------------------------------------- */
+
+.reveal .hashtag {
+  color: black;
+}
+.reveal .handle {
+  color: #00008b;
+}
+
+/* NAVIVATION -------------------------------------------------------------- */
+
+/*
+.navigate-left {
+  border-right-color: black !important;
+}
+.navigate-right {
+  border-left-color: black !important;
+}
+.navigate-up {
+  border-bottom-color: black !important;
+}
+.navigate-down {
+  border-top-color: black !important;
+}
+*/
+
+/* CODE -------------------------------------------------------------------- */
+
+p code,
+ul > li > code {
+  color: #c7254e;
+  background-color: white;
+}
+
+/* COLUMNS ----------------------------------------------------------------- */
+
+.container{
+    display: flex;
+}
+.col{
+    flex: 1;
+}
