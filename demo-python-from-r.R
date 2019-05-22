@@ -19,208 +19,208 @@
 #
 library(reticulate)
 
-# Pacote Library for making magic squares.
+# Pacote para fazer magic squares.
 #
 library(magic)
 
 library(magrittr)
 #
-# The pipe: a solid argument for using R.
+# Pipe: Uma maravilha do R
 
-# CHECK FOR PYTHON ----------------------------------------------------------------------------------------------------
+# Verifica PYTHON ----------------------------------------------------------------------------------------------------
 
-# Check if Python is in PATH.
+# Verifica onde está o Python
 #
 Sys.which("python")
 
-# Check for current configuration and alternative options.
+# Verifica configurações e outras opções
 #
 py_config()
 
-# Choosing a different Python:
+# Para escolher uma versão de python diferente da retornada em Sys.which("python")
 #
 # - use_python()
 # - use_virtualenv()
-# - use_condaenv() or
+# - use_condaenv() ou
 # - use the RETICULATE_PYTHON environment variable.
 #
 if (FALSE) {
   use_python("/usr/bin/python3")
 }
 
-# PYTHON MODULES ------------------------------------------------------------------------------------------------------
+# Módulos Python ------------------------------------------------------------------------------------------------------
 
-# reticulate::py_install() - Install specified module.
-# reticulate::import()     - Import specified module.
+# reticulate::py_install() - Instala módulo especificado.
+# reticulate::import()     - Importa módulo.
 #
 sys <- import("sys")
-sys$version                            # [Python] Equivalent to sys.version
+sys$version                            # Equivalente em Python ao sys.version
 
 os <- import("os")
 #
-# Access components of module using list notation.
+# Notação de lista para acessar componentes dos módulos importados
 #
-os$getcwd()                            # [Python] Working directory
-getwd()                                # [R]      Working directory
+os$getcwd()                            # [Python] Diretório de trabalho
+getwd()                                # [R]      Diretório de trabalho
 #
-os$listdir(".")                        # [Python] List files (shows hidden files)
-list.files(all.files = TRUE)           # [R]      List files
+os$listdir(".")                        # [Python] Lista arquivos
+list.files(all.files = TRUE)           # [R]      Lista arquivos
 
-# GETTING HELP --------------------------------------------------------------------------------------------------------
+# Ajuda --------------------------------------------------------------------------------------------------------
 
 ?list.files                            # [R]
 py_help(os$listdir)                    # [Python]
 
-# VIRTUAL ENVIRONMENTS ------------------------------------------------------------------------------------------------
+# Ambientes virtuais ------------------------------------------------------------------------------------------------
 
-# R handles library dependencies rather elegantly.
-# Python can be temperamental. So it's good practice to use virtual environments.
+# R lida com dependências de maneira mais elegante.
+# Python pode ser temperamental. É uma boa prática usar ambientes virtuais.
 #
-# - There's a set of virtualenv_*() functions for working with virtual environments.
-# - There are analogous functions for Conda environments.
+# - Há algumas funções virtualenv_*() para trabalhar com isso.
+# - Conda environments possuem funções análogas..
 
-# Where are virtual environments stored?
+# Onde ficam ambientes virtuais?
 #
 virtualenv_root()
 
-# List existing virtual environments.
+# Lista ambientes virtuais existentes
 #
 virtualenv_list()
 
-# Let's create a new one.
+# Vamos criar um ambiente virtual
 #
-virtualenv_create("test")
+virtualenv_create("teste")
 #
-# What's the default configuration for a virtual environment?
+#Configuração padrão para um ambiente virtual
 #
-reticulate:::virtualenv_config()       # Use ::: to access hidden function.
+reticulate:::virtualenv_config()       # Use ::: para acessar uma função 'escondida'
 #
-# It's using Python 2. There's currently no easy way to change this.
+# Está sendo usado Python 2. Ainda não é muito fácil mudar isso.
 
-# Install a few packages into the virtual environment.
+# Instalação de pacotes no ambiente virtual.
 #
 virtualenv_install("test", c("numpy", "pandas", "matplotlib", "pycountry==17.5.14"))
 
-# Start working with the freshly minted virtual environment...
+# Começando a trabalhar com o ambiente recém criado.
 #
-use_virtualenv("test")
+use_virtualenv("teste")
 import("matplotlib")
 #
-# There's a catch: reticulate has already bound to the system version of Python.
+# reticulate já fixou a versão do Python
 #
-# Reload reticulate!
+# Recarregando o reticulate!
 #
 detach("package:reticulate", unload=TRUE); library(reticulate)
 
-use_virtualenv("test")
+use_virtualenv("teste")
 #
-# Check whether a module is installed.
+# Verifica se o módulo está instalado.
 #
 py_module_available("matplotlib")
 #
 pandas <- import("pandas")
 numpy <- import("numpy")
 
-# PYTHON FROM R -------------------------------------------------------------------------------------------------------
+# PYTHON do R -------------------------------------------------------------------------------------------------------
 
-# Magic squares are a mathematical novelty: a matrix of integers where the sums of rows, columns and diagonals are all
-# the same.
+# Magic squares são uma novidade matemática: É uma matriz de números inteiros onde
+# as somas das linhas, colunas e diagonais são todas iguais.
 #
-# There doesn't seem to be a Python package that will build magic squares. But we can do this in R.
+# Não parece existir um pacote Python para trabalhar com magic squares. Mas em R temos um.
 #
 (M7 <- magic(7))
 #
-# Quickly explore this mathematical oddity.
+# Vamos verificar essas propriedades
 #
-colSums(M7)                            # [R] Sums of columns
-rowSums(M7)                            # [R] Sums of rows
-sum(diag(M7))                          # [R] Sum of diagonal
+colSums(M7)                            # [R] soma de colunas
+rowSums(M7)                            # [R] soma de linhas
+sum(diag(M7))                          # [R] soma da diagonal principal
 
-# Let's do some simple linear algebra using Python.
+# Vamos fazer álgebra linear simples com python.
 #
-numpy$transpose(M7)                    # [Python] Equivalent to numpy.transpose()
+numpy$transpose(M7)                    # [Python] equivalente a t()
 #
-numpy$linalg$eig(M7)                   # [Python] Equivalent to numpy.linalg.eig()
+numpy$linalg$eig(M7)                   # [Python] equivalente a eigen()
 #
-# Isn't the data transfer between R and Python going to be inefficient? No!!
+# A transferência de dados entre a linguagem não é ineficiente
 #
-# The R matrix is being mapped directly to a Numpy ndarray. There is no copy taking place!
+# A matriz do R é convertida diretamente para um ndarry do numpy. Não há cópia!
 
-# PYTHON: EXECUTING CODE ----------------------------------------------------------------------------------------------
+# PYTHON: Executando código ----------------------------------------------------------------------------------------------
 
-# We've seen how to access Python functionality from within R, but what if we literally want to run Python code from R?
+# Vimos como acessar funcionalidades do python do R, mas e para literalmente rodar Python no R?
 
 py_run_string("x = 10")
 #
-# You can also run entire scripts using py_run_file().
+# Podemos rodar scripts inteiros com py_run_file().
 #
-# Both execute code within the Python __main__ module.
+# As duas funções executam código no módulo __main__ do Python.
 #
 py$x
 
-# Does assignment to existing Python variables work from R?
+# E se alterarmos no R variáveis do Python?
 #
 py$x = 13
 #
-py_run_string("print x")
+py_run_string("print(x)")
 #
-# Note: Numbers in R are floating point by default!
+# Note que números no R são floating por padrão
 
-# What about creating new variables?
+# Para criar novas variáveis:
 #
 py$hello = "Hello World!"
 #
 py_run_string("print hello")
 
-# PYTHON: SOURCING  ---------------------------------------------------------------------------------------------------
+# PYTHON: Source de scripts  ---------------------------------------------------------------------------------------------------
 
 source_python("class-person.py")
 #
-# Execute code in the Python __main__ module and expose all resulting objects to R.
+# Executa o código no módulo  __main__ do Python e passa objetos resultantes pro R.
 #
-# The resulting objects are created in the global R environment but you can specify an alternative environment.
+# Os obbjetos são criados no global environment, mas podemos especificar um environment alternativo.
 
-# Access the objects created in the Python script.
+# Acessando objetos criados num script Python.
 #
 emma
 storm
 #
-# Note: We don't need to use the special py object!
+# Note que não precisamos usar o objeto especial py.
 
-# Instantiate the class defined in the Python script.
+# Cria um objeto da classe definida no script Python.
 #
 claire = Person("Claire", "1980-04-13")
 #
-# Person - a Python class
-# claire - an instance of class Person
+# Person - classe do Python
+# claire - Um objeto de classe person
 #
 elizabeth = Person("Elizabeth", "2016-03-14")
 
-# Attributes.
+# Atributos:
 claire$id
 claire$name
 claire$birth
-# Method.
+# Método.
 elizabeth$age()
 #
-# We have gained access to Python's Object Oriented capabilities from within R. This is HUGE!
+# Ganhamos acesso às classes de objetos criadas em python, o que é muito bom!
 
 py_list_attributes(claire)
 #
-py_get_attr(claire, "birth")           # [Python] Get attribute
-claire$birth                           # [R] Get attribute
+py_get_attr(claire, "birth")           # [Python] Atributo birth
+claire$birth                           # [R] Atributo birth
 
-# REPL (INTERACTIVE) --------------------------------------------------------------------------------------------------
+# REPL (Interativo) --------------------------------------------------------------------------------------------------
 
-# Launch the REPL (Read–Eval–Print Loop).
+# Executa o REPL (Read–Eval–Print Loop).
 #
 repl_python()
 
-# ---> PYTHON CODE
+# ---> Código Python
 #
 import pandas as pd
 
-# Creating a DataFrame in Python.
+# Criando DataFrame no Python.
 #
 people = pd.DataFrame({
   'age': pd.Series([35, 29, 27, 29, 18, 21], index=['Bob', 'Alice', 'Peggy', 'Victor', 'Frank', 'Erin']),
@@ -229,90 +229,94 @@ people = pd.DataFrame({
 })
 people
 
-# While we're in the Python REPL we can still access data from R using the special r object.
+# Estando no Python REPL podemos ainda acessar dados do R com o objeto especial r
 #
 r.iris
 #
-# Here's the kicker: the R object behaves like a Python object.
+# O objeto R se comporta como um objeto python.
 #
 r.iris.head()
 
 exit
 #
-# <--- PYTHON CODE
+# <--- Código Python
 
-# Use the py object to access the objects we've justed created in the Python REPL.
+# Usando o objeto py pra acessar os objetos que acabamos de criar com o Python REPL.
 #
 py$people
 
-# There's an elegant symmetry:
-#
-# - in Python use the r object to access R data (eg. r.x) and
-# - in R use the py object to access Python data (eg. py$x).
+# Há uma simetria:
+# 
+# - No Python usamos o objeto r pra acessar objetos do r (r.x)
+# - No R usamos o objeto py pra acessar objetos do Python (py$x).
 
-# [!!!] Skip forward to Case Study.
+# Dados do Python pro R: Conversão implícita -------------------------------------------------------------------------------
 
-# PYTHON DATA TO R: IMPLICIT CONVERSION -------------------------------------------------------------------------------
-
-# By default Python objects returned to R are converted to equivalent R types.
+# Por padrão objetos Python no R são convertidos pros tipos R equivalentes
 
 ten <- numpy$array(1:10)
 ten
 #
-# Note: This is a R object, so the following will not work!
+# Note que isso é um objeto R, então o código a seguir não vai funcionar!
 #
 tryCatch(
   ten$cumsum()
 )
 
-# PYTHON DATA TO R: EXPLICIT CONVERSION -------------------------------------------------------------------------------
+# Dados do Python pro R: Conversão explícita -------------------------------------------------------------------------------
 
-# You can disable type conversion.
+# Podemos desabilitar a conversão.
 #
 numpy <- import("numpy", convert = FALSE)
 
 ten <- numpy$array(1:10)
 ten
 #
-# Note: This is still a Python object, so we can call methods on it.
+# Note que isso ainda é um objeto Python, então podemos usar métodos nele.
 #
 ten$cumsum()
 
-# Explicitly convert to R.
+# Convertendo explicitamente pro R
 #
 py_to_r(ten)
 
-# R DATA TO PYTHON: EXPLICIT CONVERSION -------------------------------------------------------------------------------
+# Dados de R pro Python: Conversão explícita -------------------------------------------------------------------------------
 
-# Pair of functions:
+# Dupla de funções:
 #
-# - r_to_py() and
+# - r_to_py() e
 # - py_to_r().
 
-# VECTOR -> list in Python
+# VETOR -> lista no Python
 #
 r_to_py(1:10)
 #
-1:10 %>% r_to_py() %>% py_to_r()
+1:10 %>% 
+  r_to_py() %>% 
+  py_to_r()
 
-# LIST -> dictionary in Python
+# LISTA NOMEADA -> dicionário no Python
 #
-list(pi = 22/7, e = 2.7, ten = 10) %>% r_to_py()
+list(pi = 22/7, e = 2.7, ten = 10) %>% 
+  r_to_py()
 
-# MATRIX -> Numpy ndarray in Python
+# MATRIZ -> ndarray do numpy no Python
 #
-M7 %>% r_to_py()
+M7 %>% 
+  r_to_py()
 #
-# This conversion is very efficient because the NumPy array is mapped directly to the memory occupied by the R matrix.
-# No copy! The memory layout in both languages is by column.
+# Essa conversão é bastante eficiente porque o NumPy array é apontado diretamente pra memória
+# ocupada pela matriz do R.
+# Não há cópia! O layout de memória nas duas linguagens é por coluna.
 #
-# There's a lot more to working with arrays! (See https://rstudio.github.io/reticulate/articles/arrays.html.)
+# Há mais coisa a se fazer com arrays! (Veja https://rstudio.github.io/reticulate/articles/arrays.html.)
 
 # DATA FRAME -> Pandas DataFrame
 #
-iris %>% r_to_py()
+iris %>% 
+  r_to_py()
 
-# Explicitly create Python compound types.
+# Criando tipos compostos do Python explicitamente.
 #
 np_array(c(1:8), dtype = "float16")
 #
@@ -320,43 +324,8 @@ tuple("foo", 13, FALSE)
 #
 dict(first = 1, second  = 2, third = 3L)
 #
-# [!] Take that and pipe it into py_to_r().
+# Podemos tentar dar um py_to_r().
 
-# CONTEXT MANAGERS ----------------------------------------------------------------------------------------------------
+# Limpando ------------------------------------------------------------------------------------------------------------
 
-builtin <- import_builtins()
-
-# Python context managers are a great tool for ensuring that resources are managed correctly.
-#
-# For example, the following code will automatically close the file after writing.
-#
-# with open("hello-world.txt", "w") as file:
-#   file.write("Hello world!")
-#
-# We can access this functionality from within R too.
-#
-with(builtin$open("hello-world.txt", "w") %as% file, {
-  file$write("Hello world!")
-})
-
-# ITERATORS -----------------------------------------------------------------------------------------------------------
-
-ten = builtin$iter(1:10)
-#
-# Apply a function along the iterator.
-#
-(iterate(ten, sqrt))
-
-# [!] Go back and recreate the iterator.
-#
-iter_next(ten)
-iter_next(ten)
-iter_next(ten)
-
-# CASE STUDY ----------------------------------------------------------------------------------------------------------
-
-# Look at the Country Codes case study.
-
-# CLEAN UP ------------------------------------------------------------------------------------------------------------
-
-virtualenv_remove("test")
+virtualenv_remove("teste")
