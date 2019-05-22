@@ -32,7 +32,7 @@ library(magrittr)
 # Verifica onde está o Python
 #
 Sys.which("python")
-
+use_python("/opt/anaconda3/bin/python3")
 # Verifica configurações e outras opções
 #
 py_config()
@@ -41,12 +41,8 @@ py_config()
 #
 # - use_python()
 # - use_virtualenv()
-# - use_condaenv() ou
-# - use the RETICULATE_PYTHON environment variable.
+# - use_condaenv() 
 #
-if (FALSE) {
-  use_python("/usr/bin/python3")
-}
 
 # Módulos Python ------------------------------------------------------------------------------------------------------
 
@@ -90,40 +86,26 @@ virtualenv_list()
 # Vamos criar um ambiente virtual
 #
 virtualenv_create("teste")
-#
-#Configuração padrão para um ambiente virtual
-#
-reticulate:::virtualenv_config()       # Use ::: para acessar uma função 'escondida'
-#
-# Está sendo usado Python 2. Ainda não é muito fácil mudar isso.
 
 # Instalação de pacotes no ambiente virtual.
 #
-virtualenv_install("test", c("numpy", "pandas", "matplotlib", "pycountry==17.5.14"))
+virtualenv_install("teste", c("numpy", "pandas", "matplotlib", "pycountry==17.5.14"))
 
 # Começando a trabalhar com o ambiente recém criado.
 #
-use_virtualenv("teste")
-import("matplotlib")
-#
-# reticulate já fixou a versão do Python
-#
-# Recarregando o reticulate!
-#
-detach("package:reticulate", unload=TRUE); library(reticulate)
-
 use_virtualenv("teste")
 #
 # Verifica se o módulo está instalado.
 #
 py_module_available("matplotlib")
 #
+plt <- import("matplotlib")
 pandas <- import("pandas")
 numpy <- import("numpy")
 
 # PYTHON do R -------------------------------------------------------------------------------------------------------
 
-# Magic squares são uma novidade matemática: É uma matriz de números inteiros onde
+# Magic squares são matrizes de números inteiros onde
 # as somas das linhas, colunas e diagonais são todas iguais.
 #
 # Não parece existir um pacote Python para trabalhar com magic squares. Mas em R temos um.
@@ -158,27 +140,13 @@ py_run_string("x = 10")
 #
 py$x
 
-# E se alterarmos no R variáveis do Python?
-#
-py$x = 13
-#
-py_run_string("print(x)")
-#
-# Note que números no R são floating por padrão
-
-# Para criar novas variáveis:
-#
-py$hello = "Hello World!"
-#
-py_run_string("print hello")
-
 # PYTHON: Source de scripts  ---------------------------------------------------------------------------------------------------
 
 source_python("class-person.py")
 #
 # Executa o código no módulo  __main__ do Python e passa objetos resultantes pro R.
 #
-# Os obbjetos são criados no global environment, mas podemos especificar um environment alternativo.
+# Os objetos são criados no global environment, mas podemos especificar um environment alternativo.
 
 # Acessando objetos criados num script Python.
 #
@@ -256,6 +224,7 @@ py$people
 
 ten <- numpy$array(1:10)
 ten
+class(ten)
 #
 # Note que isso é um objeto R, então o código a seguir não vai funcionar!
 #
@@ -271,6 +240,7 @@ numpy <- import("numpy", convert = FALSE)
 
 ten <- numpy$array(1:10)
 ten
+class(ten)
 #
 # Note que isso ainda é um objeto Python, então podemos usar métodos nele.
 #
@@ -278,8 +248,8 @@ ten$cumsum()
 
 # Convertendo explicitamente pro R
 #
-py_to_r(ten)
-
+ten <- py_to_r(ten)
+class(ten)
 # Dados de R pro Python: Conversão explícita -------------------------------------------------------------------------------
 
 # Dupla de funções:
@@ -315,16 +285,6 @@ M7 %>%
 #
 iris %>% 
   r_to_py()
-
-# Criando tipos compostos do Python explicitamente.
-#
-np_array(c(1:8), dtype = "float16")
-#
-tuple("foo", 13, FALSE)
-#
-dict(first = 1, second  = 2, third = 3L)
-#
-# Podemos tentar dar um py_to_r().
 
 # Limpando ------------------------------------------------------------------------------------------------------------
 
