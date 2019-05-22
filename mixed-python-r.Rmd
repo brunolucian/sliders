@@ -36,7 +36,9 @@ These are some of the topics and tools that I'll be talking about. Feel free to 
   <code class="handle">@brunolucian</code>
 </div>
 
-# {data-background-image="img/pythonvsR.png"}
+# <img src="img/pythonvsR.png">
+
+<!-- {data-background-image="img/pythonvsR.png"} -->
 
 
 ---
@@ -82,15 +84,15 @@ These are some of the topics and tools that I'll be talking about. Feel free to 
 
 #### Pontos fortes
 
-- explicitamente orientada a objetos
-- incentiva código estruturado
-- uso geral e
-- simples para colocar algoritmos em produção.
+- Explicitamente orientada a objetos
+- Incentiva código estruturado
+- De uso geral
+- Simples para colocar algoritmos em produção.
 
 #### Pontos fracos
 
-- não é nativa para os problemas de Data Science
-- dependencia de modulos pode ser um desafio.
+- Não é nativa para os problemas de Data Science
+- Dependencia de modulos pode ser um desafio.
 
 
 ---
@@ -132,12 +134,7 @@ There should be no objection to embedding some SQL in a string within your Pytho
 
 
 
-# Python com R 
-
-<div class="align-center">
-  ![](img/pythonandr.png)
-</div>
-
+# <img src='img/pythonandr.png'>
 
 ## Opções para uso do Python com R
 
@@ -170,7 +167,7 @@ pip install rpy2
 
 ## {data-background-image="img/demo-time-getting-serious2.png"}
 
-# `r fa("r-project", fill = "steelblue")` feat. <i class="fab fa-python fa-2x"></i>
+# <img src='img/logo/logo-reticulate.png'>
 
 
 ## Opções para uso do R com Python
@@ -206,7 +203,9 @@ devtools::install_github("rstudio/reticulate")
 
 ## {data-background-image="img/demo-time-getting-serious2.png"}
 
-# <i class="fab fa-python fa-2x"></i> $+$ <i class="fab fa-r-project fa-2x"></i>
+
+# <img src='img/pythonlover.png'>
+
 
 ---
 
@@ -251,10 +250,12 @@ Devemos trabalhar<br><span class="emphasis">juntos</span><br>e<br><span class="e
 </div>
 </div>
 
+---
 
+### Agradecimentos
 
-
-
-
+- Comissão do IV SER 
+- Rede Globo
+- Andrew B. Collier
 
 
