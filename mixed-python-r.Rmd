@@ -19,14 +19,7 @@ output:
 ```{r load_packages, message=FALSE, warning=FALSE, include=FALSE} 
 library(fontawesome)
 ```
-    
-<aside class="notes">
-I'm Andrew Collier and I'll be talking about mixed language programming with R and Python.
 
-As you can see I come from South Africa and I work as a Freelance Data Scientist for Toptal. Toptal is an exclusive talent network for technical specialists. Leading companies rely on Toptal freelancers for their most important projects.
-
-These are some of the topics and tools that I'll be talking about. Feel free to use these liberally if you are active on Twitter.
-</aside>
 
 <div class="align-center" style="font-size: 200%;">
   <code class="hashtag">#python #rstats</code>
@@ -166,6 +159,7 @@ pip install rpy2
 ```
 
 ## {data-background-image="img/demo-time-getting-serious2.png"}
+
 
 # <img src='img/logo/logo-reticulate.png'>
 
