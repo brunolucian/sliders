@@ -4,7 +4,7 @@
     <title>Curso de Visualização de Dados</title>
     <meta charset="utf-8" />
     <meta name="author" content="Bruno Lucian" />
-    <meta name="date" content="2021-08-25" />
+    <meta name="date" content="2021-08-26" />
     <script src="libs/header-attrs-2.10/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
@@ -17,7 +17,7 @@ class: center, middle, inverse, title-slide
 ## Overview e pitfalls
 ### Bruno Lucian
 ### CEPERJ
-### 2021-08-25
+### 2021-08-26
 
 ---
 
@@ -131,26 +131,44 @@ class: inverse, center, middle
 ![](slides_dataviz_01_files/figure-html/unnamed-chunk-14-1.svg)&lt;!-- --&gt;
 
 ---
+### Não use cores que não comunicam nada
+![](slides_dataviz_01_files/figure-html/unnamed-chunk-15-1.svg)&lt;!-- --&gt;
+---
+### Cores: apenas com informações adicionais
 
+Aqui está o mesmo gráfico usando uma única cor para todos os países. Ele transmite a mesma informação com menos recursos visuais.
 
+![](slides_dataviz_01_files/figure-html/unnamed-chunk-16-1.svg)&lt;!-- --&gt;
 ---
 
+Você ainda pode usar cores para destacar variações específicas no seu gráfico. É uma pratica comum, eu pessoalmente não sou um grande fã disso.
+
+![](slides_dataviz_01_files/figure-html/unnamed-chunk-17-1.svg)&lt;!-- --&gt;
+---
+#### Conecte seus pontos de dados quando o eixo x for ordenado!
+
+![](slides_dataviz_01_files/figure-html/unnamed-chunk-18-1.svg)&lt;!-- --&gt;
+---
+#### Conecte seus pontos de dados quando o eixo x for ordenado!
+
+![](slides_dataviz_01_files/figure-html/unnamed-chunk-19-1.svg)&lt;!-- --&gt;
+---
+### Não faça conta mentalmente
+
+Vamos considerar o número de pessoas que entram (curva vermelha) e saem (curva azul) de uma loja das 8h às 22h. Esta é uma representação precisa usando um gráfico de linha , que responde muito bem à pergunta de quantas pessoas estão entrando / saindo da loja.
+![](slides_dataviz_01_files/figure-html/unnamed-chunk-20-1.svg)&lt;!-- --&gt;
+
+E se alguém perguntar:
+
+Qual é a tendência do número total de pessoas na loja?
+Que horas o número de pessoas na loja está diminuindo?
 
 ---
+### Não faça conta mentalmente
 
+Em vez de forçar o leitor a fazer o cálculo, provavelmente é melhor representar o número de pessoas na loja diretamente.
 
----
-
-
----
-
-
----
-
-
----
-
-
+![](slides_dataviz_01_files/figure-html/unnamed-chunk-21-1.svg)&lt;!-- --&gt;
 ---
 
 
