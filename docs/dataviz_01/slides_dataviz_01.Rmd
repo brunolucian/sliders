@@ -50,7 +50,7 @@ ggplot(data, aes(x="", y=value, fill=name)) +
   geom_bar(width = 1, stat = "identity") +
   coord_polar("y", start=0, direction = -1) +
   scale_fill_viridis(discrete = TRUE,  direction=-1) + 
-  geom_text(aes(y = vec, label = rev(name), size=4, color=c( "white", rep("black", 4)))) +
+  geom_text(aes(y = vec, label = rev(name), size=3, color=c( "white", rep("black", 4)))) +
   scale_color_manual(values=c("black", "white")) +
   theme_ipsum_pub() +
   theme(
