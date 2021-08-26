@@ -46,7 +46,7 @@ data3 <- data.frame( name=letters[1:5], value=c(24,23,21,19,18) )
 # Plot
 plot_pie <- function(data, vec){
 
-ggplot(data, aes(x="name", y=value, fill=name)) +
+ggplot(data, aes(x="", y=value, fill=name)) +
   geom_bar(width = 1, stat = "identity") +
   coord_polar("y", start=0, direction = -1) +
   scale_fill_viridis(discrete = TRUE,  direction=-1) + 
@@ -57,7 +57,9 @@ ggplot(data, aes(x="name", y=value, fill=name)) +
     legend.position="none",
     plot.title = element_text(size=14),
     panel.grid = element_blank(),
-    axis.text = element_blank(),
+    axis.title.x=element_blank(),
+    axis.text.x=element_blank(),
+    axis.ticks.x=element_blank(),
     legend.margin=unit(0, "null")
   ) +
   xlab("") +
@@ -70,18 +72,17 @@ plot_pie(data1, c(10,35,55,75,93))
 ## É ruim mas todo mundo já usou!
 
 ---
+### Não ficou convencido?
+#### Vamos tentar comparar vários deles! 
 
-## Não ficou convencido?
-## Vamos tentar comparar vários deles! 
-
-
-```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=3.5, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 a <- plot_pie(data1, c(10,35,55,75,93))
 b <- plot_pie(data2, c(10,35,53,75,93))
 c <- plot_pie(data3, c(10,29,50,75,93))
 a + b + c
 ```
-## É ruim mas todo mundo já usou!
+
+#### É ruim mas todo mundo já usou!
 
 ---
 
