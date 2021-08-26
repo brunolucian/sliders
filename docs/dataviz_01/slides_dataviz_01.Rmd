@@ -341,39 +341,203 @@ ggExtra::ggMarginal(p, type = "histogram")
 ```
 
 ---
+### Não use cores que não comunicam nada
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
+
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(viridis)
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+
+# create random color palette
+mycolors <- colors()[sample(1:400, nrow(data))]
+  
+# Barplot
+data %>%
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  tail(20) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value, fill=Country) ) +
+    geom_bar(stat="identity") +
+    scale_fill_manual( values = mycolors ) +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("") +
+    ylab("Weapon quantity (SIPRI trend-indicator value)")
+
+```
+---
+### Cores: apenas com informações adicionais
+
+Aqui está o mesmo gráfico usando uma única cor para todos os países. Ele transmite a mesma informação com menos recursos visuais.
 
 ```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
+
+# Barplot
+data %>%
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  tail(20) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_bar(stat="identity", fill="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("") +
+    ylab("Weapon quantity (SIPRI trend-indicator value)")
 
 ```
 ---
 
+Você ainda pode usar cores para destacar variações específicas no seu gráfico. É uma pratica comum, eu pessoalmente não sou um grande fã disso.
+
 ```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
+
+# Barplot
+data %>%
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  tail(20) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value, fill=Value) ) +
+    geom_bar(stat="identity") +
+    scale_fill_viridis() +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("") +
+    ylab("Weapon quantity (SIPRI trend-indicator value)")
 
 ```
 ---
+#### Conecte seus pontos de dados quando o eixo x for ordenado!
 
 ```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
 
+# Load dataset: comes with R
+data <- data.frame(
+  Year = as.numeric(time(sunspot.year)),
+  Sunspots = as.numeric(sunspot.year)
+)
+
+# Plot
+data %>%
+  head(100) %>%
+  ggplot( aes(x=Year, y=Sunspots)) +
+    geom_point() +
+    ggtitle("Number of sunspots per year") +
+    theme_ipsum() +
+    theme(
+      plot.title = element_text(size=12)
+    )
 ```
 ---
+#### Conecte seus pontos de dados quando o eixo x for ordenado!
 
 ```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
 
+# Load dataset: comes with R
+data <- data.frame(
+  Year = as.numeric(time(sunspot.year)),
+  Sunspots = as.numeric(sunspot.year)
+)
+
+# Plot
+data %>%
+  head(100) %>%
+  ggplot( aes(x=Year, y=Sunspots)) +
+    geom_line() +
+    ggtitle("Number of sunspots per year") +
+    theme_ipsum() +
+    theme(
+      plot.title = element_text(size=12)
+    )
 ```
 ---
+### Não faça conta mentalmente
 
+Vamos considerar o número de pessoas que entram (curva vermelha) e saem (curva azul) de uma loja das 8h às 22h. Esta é uma representação precisa usando um gráfico de linha , que responde muito bem à pergunta de quantas pessoas estão entrando / saindo da loja.
 ```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
+
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+
+# Create data
+data <- data.frame(
+  x = seq(8,20,0.5),
+  Entering = c(20,22,19,24,28,29,26,32,34,37,33,34,30,28,29,30,27,21,19,21,17,13,15,12,9),
+  Leaving = c(0,4,8,7,10,13,15,16,15,16,17,19,22,21,24,26,24,25,28,29,28,26,23,20,19)
+)
+
+# reformat
+data %>%
+  gather( key=type, value=value, -1) %>%
+  ggplot( aes(x=x, y=value, color=type)) +
+    geom_line() +
+    ylim(0,40) +
+    scale_color_discrete(name="") +
+    scale_x_continuous(breaks=seq(8,20,1)) +
+    annotate( "text", x=c(12.5, 16.3, 17.5), y=c(39, 27, 31), label=LETTERS[1:3] ) +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor = element_blank(),
+      legend.position = c(0.9, 0.9),
+    ) +
+    ylab("# of people") + 
+    xlab("Hour of day")
 
 ```
+
+E se alguém perguntar:
+
+Qual é a tendência do número total de pessoas na loja?
+Que horas o número de pessoas na loja está diminuindo?
+
 ---
+### Não faça conta mentalmente
+
+Em vez de forçar o leitor a fazer o cálculo, provavelmente é melhor representar o número de pessoas na loja diretamente.
 
 ```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
-
-```
----
-
-```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
-
+# reformat
+data %>%
+  mutate(difference=Entering-Leaving + 5) %>%
+  mutate(tot = cumsum(difference)) %>%
+  ggplot( aes(x=x, y=tot)) +
+    geom_line() +
+    annotate( "text", x=c(12.5, 16.3, 17.5), y=c(205, 300, 290), label=LETTERS[1:3] ) +
+    scale_x_continuous(breaks=seq(8,20,1)) +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor = element_blank()
+    ) +
+    ylab("# of people") + 
+    xlab("Hour of day")
 ```
 ---
 
