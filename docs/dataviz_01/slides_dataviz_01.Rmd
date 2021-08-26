@@ -32,7 +32,7 @@ class: inverse, center, middle
 # O famoso gráfico de pizza
 
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
@@ -75,7 +75,7 @@ plot_pie(data1, c(10,35,55,75,93))
 ## Vamos tentar comparar vários deles! 
 
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 a <- plot_pie(data1, c(10,35,55,75,93))
 b <- plot_pie(data2, c(10,35,53,75,93))
 c <- plot_pie(data3, c(10,29,50,75,93))
@@ -87,7 +87,7 @@ a + b + c
 
 ## Agora, vamos representar exatamente os mesmos dados usando um gráfico de barras
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 # A function to make barplots
 plot_bar <- function(data){
   ggplot(data, aes(x=name, y=value, fill=name)) +
@@ -119,7 +119,7 @@ a + b + c
 ---
 ### Você também pode considerar um gráfico de pirulito que é um pouco mais elegante na minha opinião. Aqui está um exemplo baseado na quantidade de armas vendidas por alguns países do mundo:
 
-```{r, fig.height=5, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=5, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 # Load dataset from github
 data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
@@ -146,7 +146,7 @@ data %>%
 ---
 ##### O *overplotting* é um problema comum em dataviz. Ocorre quando o conjunto de dados é grande, os pontos do gráfico de dispersão tendem a se sobrepor, tornando o gráfico ilegível.
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 library(tidyverse)
 library(hrbrthemes)
 library(viridis)
@@ -171,7 +171,7 @@ data %>%
 
 ## Diminuindo o tamanho do ponto
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 # Plot with small dot size
 data %>%
   ggplot( aes(x=x, y=y)) +
@@ -186,7 +186,7 @@ data %>%
 
 ## Transparência
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 # Plot with small dot size
 data %>%
   ggplot( aes(x=x, y=y)) +
@@ -201,7 +201,7 @@ data %>%
 
 ## Densidade 2D
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 ggplot(data, aes(x=x, y=y) ) +
   stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
   scale_x_continuous(expand = c(0, 0)) +
@@ -217,7 +217,7 @@ ggplot(data, aes(x=x, y=y) ) +
 
 #### As vezes menos é mais. Plotar apenas uma fração de seus dados (5% aqui) pode reduzir muito o tempo de computação e pode ajudar a evitar o overplotting:
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 # Plot with small dot size
 data %>%
   sample_frac(0.05) %>%
@@ -233,7 +233,7 @@ data %>%
 
 ## Destacando um grupo
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 # Plot with small dot size
 data %>%
   ggplot( aes(x=x, y=y)) +
@@ -251,7 +251,7 @@ data %>%
 
 ## Agrupamento
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 # Plot with small dot size
 data %>%
@@ -266,7 +266,7 @@ data %>%
 
 ## Facet
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 # Plot with small dot size
 data %>%
@@ -288,7 +288,7 @@ data %>%
 
 #### `Jittering` é uma opção quando um dos eixos é qualitativo (como 1, 2, 3 .., veja a figura à esquerda). Ele adiciona ou subtrai um valor aleatório para cada ponto de dados para evitar overplotting. 
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 # Create data
 don <- data.frame(
   x = rep(seq(1,5), each=1000),
@@ -324,7 +324,7 @@ p1 + p2
 
 #### Adicionar distribuições marginais permite que você detecte a distribuição oculta nas partes overplotted do gráfico. Você pode adicionar um boxplot, um histograma ou um gráfico de densidade nas margens.
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 library(ggExtra)
 
 # create a ggplot2 scatterplot
@@ -342,147 +342,147 @@ ggExtra::ggMarginal(p, type = "histogram")
 
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 ---
 
-```{r, fig.height=4, dev='svg',message=FALSE, warning=FALSE, echo=FALSE}
+```{r, fig.height=4, dev='svglite',message=FALSE, warning=FALSE, echo=FALSE}
 
 ```
 
